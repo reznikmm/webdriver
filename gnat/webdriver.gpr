@@ -1,0 +1,28 @@
+--  Copyright (c) 2017 Maxim Reznik <reznikmm@gmail.com>
+--
+--  SPDX-License-Identifier: MIT
+--  License-Filename: LICENSE
+-------------------------------------------------------------
+with "aws";
+with "matreshka_league.gpr";
+
+project WebDriver is
+
+   for Object_Dir use "../.objs";
+   for Source_Dirs use ("../source");
+
+   for Main use ("test");
+
+   package Compiler is
+
+      for Default_Switches ("Ada") use
+        ("-g",
+         "-gnata",
+         "-gnatwa",
+         "-gnatyy",
+         "-gnat12",
+         "-gnatVa",
+         "-gnatW8");
+   end Compiler;
+
+end WebDriver;
