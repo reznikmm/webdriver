@@ -5,6 +5,7 @@
 -------------------------------------------------------------
 
 with League.Strings;
+with WebDriver.Elements;
 
 package WebDriver.Sessions is
 
@@ -22,5 +23,11 @@ package WebDriver.Sessions is
     (Self : access Session) return League.Strings.Universal_String
        is abstract;
    --  Gets the URL the browser is currently displaying.
+
+   not overriding function Find_Element
+     (Self     : access Session;
+      Strategy : WebDriver.Location_Strategy;
+      Selector : League.Strings.Universal_String)
+      return WebDriver.Elements.Element_Access is abstract;
 
 end WebDriver.Sessions;
