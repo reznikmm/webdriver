@@ -18,6 +18,8 @@ package body Sessions is
      (Strategy : WebDriver.Location_Strategy)
       return League.Strings.Universal_String;
 
+   type Element_Access is access all Elements.Element;
+
    ------------------
    -- Find_Element --
    ------------------
@@ -28,7 +30,7 @@ package body Sessions is
       Selector : League.Strings.Universal_String)
         return WebDriver.Elements.Element_Access
    is
-      Result    : constant access Elements.Element := new Elements.Element;
+      Result    : constant not null Element_Access := new Elements.Element;
       Command   : WebDriver.Remote.Command;
       Response  : WebDriver.Remote.Response;
       Using     : constant League.JSON.Values.JSON_Value :=
@@ -49,7 +51,7 @@ package body Sessions is
       Result.Element_Id := Element (+"ELEMENT").To_String;
       Result.Executor := Self.Executor;
 
-      return Result;
+      return WebDriver.Elements.Element_Access (Result);
    end Find_Element;
 
    ---------------------

@@ -15,6 +15,8 @@ package body Drivers is
 
    Capabilities_Key : constant Wide_Wide_String := "desiredCapabilities";
 
+   type Session_Access is access all Sessions.Session;
+
    -----------------
    -- New_Session --
    -----------------
@@ -22,7 +24,7 @@ package body Drivers is
    overriding function New_Session
      (Self : access Driver) return WebDriver.Sessions.Session_Access
    is
-      Result   : constant access Sessions.Session := new Sessions.Session;
+      Result   : constant not null Session_Access := new Sessions.Session;
       Command  : WebDriver.Remote.Command;
       Response : WebDriver.Remote.Response;
    begin
@@ -35,7 +37,7 @@ package body Drivers is
 
       Result.Session_Id := Response.Value (+"sessionId").To_String;
       Result.Executor := Self.Executor'Unchecked_Access;
-      return Result;
+      return WebDriver.Sessions.Session_Access (Result);
    end New_Session;
 
 end Drivers;

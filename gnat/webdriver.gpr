@@ -11,8 +11,6 @@ project WebDriver is
    for Object_Dir use "../.objs";
    for Source_Dirs use ("../source");
 
-   for Main use ("test");
-
    package Compiler is
 
       for Default_Switches ("Ada") use

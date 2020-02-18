@@ -23,18 +23,20 @@ begin
      (Session.Get_Current_URL.To_Wide_Wide_String);
 
    declare
-      Table : constant WebDriver.Elements.Element_Access :=
+      Body_Element : constant WebDriver.Elements.Element_Access :=
         Session.Find_Element
           (Strategy => WebDriver.Tag_Name,
-           Selector => +"table");
+           Selector => +"body");
    begin
       Ada.Wide_Wide_Text_IO.Put_Line
-        ("Selected=" & Boolean'Wide_Wide_Image (Table.Is_Selected));
+        ("Selected=" & Boolean'Wide_Wide_Image (Body_Element.Is_Selected));
       Ada.Wide_Wide_Text_IO.Put_Line
-        ("summary=" & Table.Get_Attribute (+"summary").To_Wide_Wide_String);
+        ("itemtype=" &
+           Body_Element.Get_Attribute (+"itemtype").To_Wide_Wide_String);
       Ada.Wide_Wide_Text_IO.Put_Line
-        ("height=" & Table.Get_CSS_Value (+"height").To_Wide_Wide_String);
+        ("height=" &
+           Body_Element.Get_CSS_Value (+"height").To_Wide_Wide_String);
       Ada.Wide_Wide_Text_IO.Put_Line
-        ("tag=" & Table.Get_Tag_Name.To_Wide_Wide_String);
+        ("tag=" & Body_Element.Get_Tag_Name.To_Wide_Wide_String);
    end;
 end Test;

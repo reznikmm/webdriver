@@ -1,0 +1,19 @@
+--  Copyright (c) 2017 Maxim Reznik <reznikmm@gmail.com>
+--
+--  SPDX-License-Identifier: MIT
+--  License-Filename: LICENSE
+-------------------------------------------------------------
+with "aws";
+with "matreshka_league.gpr";
+with "webdriver.gpr";
+
+project WebDriver_Ex is
+
+   for Object_Dir use "../.objs/ex";
+   for Source_Dirs use ("../example");
+
+   for Main use ("test");
+
+   package Compiler renames WebDriver.Compiler;
+
+end WebDriver_Ex;
