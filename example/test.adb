@@ -1,6 +1,9 @@
 with Ada.Wide_Wide_Text_IO;
 
 with League.Strings;
+with League.JSON.Arrays;
+with League.JSON.Objects;
+with League.JSON.Values;
 
 with WebDriver.Drivers;
 with WebDriver.Elements;
@@ -12,10 +15,29 @@ procedure Test is
      (Text : Wide_Wide_String) return League.Strings.Universal_String
       renames League.Strings.To_Universal_String;
 
+   function Headless return League.JSON.Values.JSON_Value;
+
+   --------------
+   -- Headless --
+   --------------
+
+   function Headless return League.JSON.Values.JSON_Value is
+      Cap      : League.JSON.Objects.JSON_Object;
+      Options  : League.JSON.Objects.JSON_Object;
+      Args     : League.JSON.Arrays.JSON_Array;
+   begin
+      Args.Append (League.JSON.Values.To_JSON_Value (+"--headless"));
+      Args.Append (League.JSON.Values.To_JSON_Value (+"--disable-extensions"));
+      Args.Append (League.JSON.Values.To_JSON_Value (+"--no-sandbox"));
+      Options.Insert (+"args", Args.To_JSON_Value);
+      Cap.Insert (+"chromeOptions", Options.To_JSON_Value);
+      return Cap.To_JSON_Value;
+   end Headless;
+
    Web_Driver : aliased WebDriver.Drivers.Driver'Class
      := WebDriver.Remote.Create (+"http://127.0.0.1:9515");
    Session    : constant WebDriver.Sessions.Session_Access :=
-     Web_Driver.New_Session;
+     Web_Driver.New_Session (Headless);
 begin
    Session.Go (+"http://www.ada-ru.org/");
 

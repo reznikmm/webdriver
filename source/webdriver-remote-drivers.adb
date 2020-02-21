@@ -22,7 +22,10 @@ package body Drivers is
    -----------------
 
    overriding function New_Session
-     (Self : access Driver) return WebDriver.Sessions.Session_Access
+     (Self         : access Driver;
+      Capabilities : League.JSON.Values.JSON_Value :=
+        League.JSON.Values.Empty_JSON_Value)
+          return WebDriver.Sessions.Session_Access
    is
       Result   : constant not null Session_Access := new Sessions.Session;
       Command  : WebDriver.Remote.Command;
@@ -30,9 +33,7 @@ package body Drivers is
    begin
       Command.Method := Post;
       Command.Path.Append ("/session");
-      Command.Parameters.Insert
-        (+Capabilities_Key,
-         League.JSON.Objects.Empty_JSON_Object.To_JSON_Value);
+      Command.Parameters.Insert (+Capabilities_Key, Capabilities);
       Response := Self.Executor.Execute (Command);
 
       Result.Session_Id := Response.Value (+"sessionId").To_String;

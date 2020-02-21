@@ -7,6 +7,7 @@
 with AWS.Client;
 
 with League.JSON.Objects;
+with League.JSON.Values;
 with League.String_Vectors;
 
 with WebDriver.Elements;
@@ -116,7 +117,10 @@ package body WebDriver.Remote is
       end record;
 
       overriding function New_Session
-        (Self : access Driver) return WebDriver.Sessions.Session_Access;
+        (Self         : access Driver;
+         Capabilities : League.JSON.Values.JSON_Value :=
+           League.JSON.Values.Empty_JSON_Value)
+             return WebDriver.Sessions.Session_Access;
 
    end Drivers;
 
