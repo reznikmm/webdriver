@@ -1,4 +1,4 @@
---  Copyright (c) 2017 Maxim Reznik <reznikmm@gmail.com>
+--  Copyright (c) 2017-2020 Maxim Reznik <reznikmm@gmail.com>
 --
 --  SPDX-License-Identifier: MIT
 --  License-Filename: LICENSE

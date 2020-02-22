@@ -9,7 +9,7 @@ INSTALL_ALI_DIR        ?= ${INSTALL_LIBRARY_DIR}/webdriver
 
 GPRINSTALL_FLAGS = --prefix=$(PREFIX) --sources-subdir=$(INSTALL_INCLUDE_DIR)\
  --lib-subdir=$(INSTALL_ALI_DIR) --project-subdir=$(INSTALL_PROJECT_DIR)\
---link-lib-subdir=$(INSTALL_LIBRARY_DIR)
+ --link-lib-subdir=$(INSTALL_LIBRARY_DIR)
 
 SHELL = bash
 
@@ -21,9 +21,8 @@ install:
 	gprinstall $(GPRINSTALL_FLAGS) -p -P gnat/webdriver.gpr
 
 check: all
-	set -e; export LD_LIBRARY_PATH=`pwd`/.libs;\
-	for J in tests/ts_*; do pushd $$J; ../../.objs/$$J > /tmp/got;\
-	  diff -u /tmp/got `basename $$J`.out; popd; done
+	echo No tests here
+
 clean:
 	gprclean -q -P gnat/webdriver.gpr
 	gprclean -q -P gnat/webdriver_ex.gpr

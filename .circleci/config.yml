@@ -1,0 +1,34 @@
+version: 2
+jobs:
+ build:
+  docker:
+   - image: registry.fedoraproject.org/fedora-minimal:31
+  steps:
+   - run:
+      command: |
+        curl -o /etc/yum.repos.d/bintray-reznikmm-matreshka.repo \
+          https://bintray.com/reznikmm/matreshka/rpm && \
+        microdnf install --enablerepo bintray--reznikmm-matreshka \
+          make \
+          rpmdevtools \
+          gcc-gnat \
+          gprbuild \
+          gdb \
+          git \
+          openssh-server \
+          tar \
+          gzip \
+          ca-certificates \
+          aws-devel \
+          matreshka-devel && \
+        microdnf clean all
+
+   - checkout:
+      path: webdriver
+   - run: rpmdev-setuptree; cp webdriver/.circleci/webdriver.spec ~/rpmbuild/SPECS/
+   - run: tar czf ~/rpmbuild/SOURCES/webdriver.tar.gz --exclude-vcs webdriver
+   - run: . /etc/profile.d/gnat-project.sh; rpmbuild -ba ~/rpmbuild/SPECS/webdriver.spec
+   - run: |
+      curl -T "$HOME/rpmbuild/RPMS/x86_64/webdriver{,-devel}-0.1.0-git.fc31.x86_64.rpm" \
+       -ureznikmm:$API_KEY -H "X-Bintray-Publish: 1" -H "X-Bintray-Override: 1" \
+       https://api.bintray.com/content/reznikmm/matreshka/webdriver/0.1.0-git/

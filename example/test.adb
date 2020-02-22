@@ -26,10 +26,16 @@ procedure Test is
       Options  : League.JSON.Objects.JSON_Object;
       Args     : League.JSON.Arrays.JSON_Array;
    begin
+      return Cap.To_JSON_Value;
+      pragma Warnings (Off);
       Args.Append (League.JSON.Values.To_JSON_Value (+"--headless"));
       Args.Append (League.JSON.Values.To_JSON_Value (+"--disable-extensions"));
       Args.Append (League.JSON.Values.To_JSON_Value (+"--no-sandbox"));
       Options.Insert (+"args", Args.To_JSON_Value);
+      Options.Insert
+        (+"binary",
+         League.JSON.Values.To_JSON_Value
+           (+"/usr/lib64/chromium-browser/headless_shell"));
       Cap.Insert (+"chromeOptions", Options.To_JSON_Value);
       return Cap.To_JSON_Value;
    end Headless;
