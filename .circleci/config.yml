@@ -2,7 +2,7 @@ version: 2
 jobs:
  build:
   docker:
-   - image: registry.fedoraproject.org/fedora-minimal:31
+   - image: registry.fedoraproject.org/fedora-minimal:32
   steps:
    - run:
       command: |
@@ -29,6 +29,6 @@ jobs:
    - run: tar czf ~/rpmbuild/SOURCES/webdriver.tar.gz --exclude-vcs webdriver
    - run: . /etc/profile.d/gnat-project.sh; rpmbuild -ba ~/rpmbuild/SPECS/webdriver.spec
    - run: |
-      curl -T "$HOME/rpmbuild/RPMS/x86_64/webdriver{,-devel}-0.1.0-git.fc31.x86_64.rpm" \
+      curl -T "$HOME/rpmbuild/RPMS/x86_64/webdriver{,-devel}-0.1.0-git.fc32.x86_64.rpm" \
        -ureznikmm:$API_KEY -H "X-Bintray-Publish: 1" -H "X-Bintray-Override: 1" \
        https://api.bintray.com/content/reznikmm/matreshka/webdriver/0.1.0-git/
