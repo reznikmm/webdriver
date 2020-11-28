@@ -1,7 +1,7 @@
 WebDriver
 =========
 
-[![CircleCI](https://circleci.com/gh/reznikmm/webdriver.svg?style=svg)](https://circleci.com/gh/reznikmm/webdriver)
+[![Build](https://github.com/reznikmm/webdriver/workflows/Build/badge.svg)](https://github.com/reznikmm/webdriver/actions)
 [![reuse compliant](https://img.shields.io/badge/reuse-compliant-green.svg)](https://reuse.software/)
 
 > Ada binding to WebDriver API

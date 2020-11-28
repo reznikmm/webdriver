@@ -14,6 +14,7 @@ Source0:    webdriver.tar.gz
 BuildRequires:   gcc-gnat
 BuildRequires:   fedora-gnat-project-common  >= 3
 BuildRequires:   matreshka-devel
+BuildRequires:   aws-devel
 BuildRequires:   gprbuild
 
 # gprbuild only available on these:
